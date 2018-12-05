@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.wedding.demo.mapper.HotelMapper">
+    <resultMap id="BaseResultMap" type="com.qfedu.wedding.demo.pojo.Hotel">
+        <id column="hotel_id" property="hotelId" jdbcType="INTEGER"/>
+        <result column="hotel_name" property="hotelName" jdbcType="VARCHAR"/>
+        <result column="hotel_address" property="hotelAddress" jdbcType="VARCHAR"/>
+        <result column="hotel_tel" property="hotelTel" jdbcType="VARCHAR"/>
+        <result column="hotel_price" property="hotelPrice" jdbcType="INTEGER"/>
+        <result column="hotel_star" property="hotelStar" jdbcType="VARCHAR"/>
+
+        <association property="imgurl" javaType="com.qfedu.wedding.demo.pojo.Img">
+            <id column="img_id" property="imgId" jdbcType="INTEGER"/>
+            <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+            <result column="img_hotel_id" property="imgHotelId" jdbcType="INTEGER"/>
+        </association>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    hotel_id, hotel_name, hotel_address, hotel_tel, hotel_price, hotel_star
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from hotel
+        where hotel_id = #{hotelId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hotel
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.qfedu.wedding.demo.pojo.Hotel">
+    insert into hotel (hotel_id, hotel_name, hotel_address, 
+      hotel_tel, hotel_price, hotel_star
+      )
+    values (#{hotelId,jdbcType=INTEGER}, #{hotelName,jdbcType=VARCHAR}, #{hotelAddress,jdbcType=VARCHAR}, 
+      #{hotelTel,jdbcType=VARCHAR}, #{hotelPrice,jdbcType=INTEGER}, #{hotelStar,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.qfedu.wedding.demo.pojo.Hotel">
+        insert into hotel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hotelId != null">
+                hotel_id,
+            </if>
+            <if test="hotelName != null">
+                hotel_name,
+            </if>
+            <if test="hotelAddress != null">
+                hotel_address,
+            </if>
+            <if test="hotelTel != null">
+                hotel_tel,
+            </if>
+            <if test="hotelPrice != null">
+                hotel_price,
+            </if>
+            <if test="hotelStar != null">
+                hotel_star,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hotelId != null">
+                #{hotelId,jdbcType=INTEGER},
+            </if>
+            <if test="hotelName != null">
+                #{hotelName,jdbcType=VARCHAR},
+            </if>
+            <if test="hotelAddress != null">
+                #{hotelAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="hotelTel != null">
+                #{hotelTel,jdbcType=VARCHAR},
+            </if>
+            <if test="hotelPrice != null">
+                #{hotelPrice,jdbcType=INTEGER},
+            </if>
+            <if test="hotelStar != null">
+                #{hotelStar,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.wedding.demo.pojo.Hotel">
+        update hotel
+        <set>
+            <if test="hotelName != null">
+                hotel_name = #{hotelName,jdbcType=VARCHAR},
+            </if>
+            <if test="hotelAddress != null">
+                hotel_address = #{hotelAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="hotelTel != null">
+                hotel_tel = #{hotelTel,jdbcType=VARCHAR},
+            </if>
+            <if test="hotelPrice != null">
+                hotel_price = #{hotelPrice,jdbcType=INTEGER},
+            </if>
+            <if test="hotelStar != null">
+                hotel_star = #{hotelStar,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where hotel_id = #{hotelId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.qfedu.wedding.demo.pojo.Hotel">
+    update hotel
+    set hotel_name = #{hotelName,jdbcType=VARCHAR},
+      hotel_address = #{hotelAddress,jdbcType=VARCHAR},
+      hotel_tel = #{hotelTel,jdbcType=VARCHAR},
+      hotel_price = #{hotelPrice,jdbcType=INTEGER},
+      hotel_star = #{hotelStar,jdbcType=VARCHAR}
+    where hotel_id = #{hotelId,jdbcType=INTEGER}
+  </update>
+    <select id="selectAll" resultMap="BaseResultMap">
+SELECT hotel_id,img_url,hotel_name,hotel_address,hotel_star,hotel_price FROM hotel LEFT OUTER JOIN img
+ON img.img_hotel_id = hotel.hotel_id
+  </select>
+
+    <select id="selectHotelById" resultMap="BaseResultMap">
+SELECT hotel_id,img_url,hotel_name,hotel_address,hotel_price FROM hotel LEFT OUTER JOIN img
+ON img.img_hotel_id = hotel.hotel_id where hotel_id = #{id}
+  </select>
+</mapper>

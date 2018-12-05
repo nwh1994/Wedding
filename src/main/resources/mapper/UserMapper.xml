@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.wedding.demo.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.wedding.demo.pojo.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_username" property="userUsername" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_sex" property="userSex" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_IDcard" property="userIdcard" jdbcType="VARCHAR" />
+    <result column="user_code" property="userCode" jdbcType="VARCHAR" />
+    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+    <result column="user_QQ" property="userQq" jdbcType="VARCHAR" />
+    <result column="user_postadd" property="userPostadd" jdbcType="VARCHAR" />
+    <result column="user_city" property="userCity" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_username, user_password, user_sex, user_name, user_IDcard, user_code, 
+    user_tel, user_QQ, user_postadd, user_city
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.wedding.demo.pojo.User" >
+    insert into user (user_id, user_username, user_password, 
+      user_sex, user_name, user_IDcard, 
+      user_code, user_tel, user_QQ, 
+      user_postadd, user_city)
+    values (#{userId,jdbcType=INTEGER}, #{userUsername,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userIdcard,jdbcType=VARCHAR}, 
+      #{userCode,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, #{userQq,jdbcType=VARCHAR}, 
+      #{userPostadd,jdbcType=VARCHAR}, #{userCity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.wedding.demo.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userUsername != null" >
+        user_username,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userIdcard != null" >
+        user_IDcard,
+      </if>
+      <if test="userCode != null" >
+        user_code,
+      </if>
+      <if test="userTel != null" >
+        user_tel,
+      </if>
+      <if test="userQq != null" >
+        user_QQ,
+      </if>
+      <if test="userPostadd != null" >
+        user_postadd,
+      </if>
+      <if test="userCity != null" >
+        user_city,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userUsername != null" >
+        #{userUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdcard != null" >
+        #{userIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null" >
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null" >
+        #{userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="userPostadd != null" >
+        #{userPostadd,jdbcType=VARCHAR},
+      </if>
+      <if test="userCity != null" >
+        #{userCity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.wedding.demo.pojo.User" >
+    update user
+    <set >
+      <if test="userUsername != null" >
+        user_username = #{userUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdcard != null" >
+        user_IDcard = #{userIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null" >
+        user_tel = #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null" >
+        user_QQ = #{userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="userPostadd != null" >
+        user_postadd = #{userPostadd,jdbcType=VARCHAR},
+      </if>
+      <if test="userCity != null" >
+        user_city = #{userCity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.wedding.demo.pojo.User" >
+    update user
+    set user_username = #{userUsername,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_IDcard = #{userIdcard,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      user_QQ = #{userQq,jdbcType=VARCHAR},
+      user_postadd = #{userPostadd,jdbcType=VARCHAR},
+      user_city = #{userCity,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <select id="selectUser" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from `user` where user_username=#{userUsername} and user_password=#{userPassword}
+  </select>
+  <select id="selectName" resultType="java.lang.Integer">
+    select count(*) from  `user` where user_username=#{userUsername}
+  </select>
+</mapper>
